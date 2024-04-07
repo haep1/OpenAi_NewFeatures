@@ -3,7 +3,7 @@ from openai import OpenAI
 client = OpenAI()
 
 speech_file_path = Path(__file__).parent / "speech.mp3"
-with open(Path(__file__).parent / "transcript.txt", "r") as file:
+with open(Path(__file__).parent / "answer.txt", "r") as file:
   input_text = file.read()
 
 with client.audio.speech.with_streaming_response.create(
