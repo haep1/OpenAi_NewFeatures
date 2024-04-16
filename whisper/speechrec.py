@@ -1,13 +1,16 @@
 import pyaudio
 import wave
 from pathlib import Path
+from openai import OpenAI
+
+client = OpenAI()
 
 # Set the audio parameters
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 44100
 CHUNK = 1024
-RECORD_SECONDS = 5
+RECORD_SECONDS = 10
 OUTPUT_FILE = "output.wav"
 
 # Initialize PyAudio
@@ -47,3 +50,8 @@ wave_file.writeframes(b''.join(frames))
 wave_file.close()
 
 print(f"Audio saved as {OUTPUT_FILE}.")
+
+f = open(Path(__file__).parent / "output.wav", "rb")
+transcript = client.audio.transcriptions.create(model="whisper-1", file=f)
+with open(Path(__file__).parent / "transcript.txt", "w") as file:
+    file.write(transcript.text)
