@@ -163,3 +163,4 @@ cython_debug/
 .DS_Store
 winterMunich.jpg
 whisper/speech.mp3
+whisper/transcript.txt
